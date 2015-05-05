@@ -27,7 +27,7 @@ public class ServerThread extends Thread
        }
        catch(IOException ioe)
        {  
-    	   System.out.println(ID + " ERROR sending: " + ioe.getMessage());
+    	   System.err.println(ID + " ERROR sending: " + ioe.getMessage());
     	   server.remove(ID);
     	   stop();
        }
@@ -49,7 +49,8 @@ public class ServerThread extends Thread
     	  server.handle(ID, serverAddress, streamIn.readUTF());
          }
          catch(IOException ioe)
-         {  System.out.println(ID + " ERROR reading: " + ioe.getMessage());
+         {
+            System.err.println(ID + " ERROR reading: " + ioe.getMessage());
             server.remove(ID);
             stop();
          }

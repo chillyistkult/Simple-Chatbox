@@ -29,7 +29,7 @@ public class ClientThread extends Thread
       }
       catch(IOException ioe)
       {  
-    	 System.out.println(ioe);
+    	 System.err.println(ioe);
          client.stop();
       }
    }
@@ -45,7 +45,7 @@ public class ClientThread extends Thread
       }
       catch(IOException ioe)
       {  
-    	  System.out.println(ioe);
+    	  System.err.println(ioe);
       }
    }
    
@@ -59,7 +59,7 @@ public class ClientThread extends Thread
          }
          catch(IOException ioe)
          {  
-        	 System.out.println(ioe.getMessage());
+        	 System.err.println(ioe.getMessage());
         	 client.stop();
          }
       }

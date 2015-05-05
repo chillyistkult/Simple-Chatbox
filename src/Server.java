@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 
 public class Server implements Runnable
-{  private ServerThread clients[] = new ServerThread[50]; //Anzahl der maximal möglichen Clients - schmiert bei 20+ schon ab wegen diversen Timeouts
+{  private ServerThread clients[] = new ServerThread[50]; //Anzahl der maximal mï¿½glichen Clients - schmiert bei 20+ schon ab wegen diversen Timeouts
    private ServerSocket server;
    private Thread thread;
    private int clientCount = 0; //aktuelle Anzahl verbundener Clients
@@ -20,7 +20,7 @@ public class Server implements Runnable
       }
       catch(IOException ioe)
       {  
-    	  System.out.println("Can not bind to port " + port + ": " + ioe.getMessage()); 
+    	  System.err.println("Can not bind to port " + port + ": " + ioe.getMessage());
 	  }
    }
    
@@ -36,7 +36,7 @@ public class Server implements Runnable
          }
          catch(IOException ioe)
          {  
-        	 System.out.println(ioe); 
+        	 System.err.println(ioe);
         	 stop(); 
          }
       }
@@ -63,7 +63,7 @@ public class Server implements Runnable
 	  } 
    }
    
-   //Client kann über die Thread-Id gesucht werden
+   //Client kann ï¿½ber die Thread-Id gesucht werden
    private int searchClient(int ID)
    {  
 	   for (int i = 0; i < clientCount; i++) 
@@ -94,7 +94,7 @@ public class Server implements Runnable
    @SuppressWarnings("deprecation")
    public synchronized void remove(int ID)
    {  
-	  //Server sucht den zu entfernenden Client aus dem Array über die ID
+	  //Server sucht den zu entfernenden Client aus dem Array ï¿½ber die ID
 	  int pos = searchClient(ID);
       if (pos >= 0)
       {  
@@ -102,7 +102,7 @@ public class Server implements Runnable
     	 ServerThread toTerminate = clients[pos];
          System.out.println("Removing client thread " + ID + " at " + pos);
          if (pos < clientCount-1)
-        	 //Array aus Clients wird defragmentiert wegen Lücken und so...
+        	 //Array aus Clients wird defragmentiert wegen Lï¿½cken und so...
             for (int i = pos+1; i < clientCount; i++) {
                clients[i-1] = clients[i];
             }
@@ -114,7 +114,7 @@ public class Server implements Runnable
     	 }
          catch(IOException ioe)
          {  
-	 		System.out.println(ioe); }
+	 		System.err.println(ioe); }
      		toTerminate.stop(); 
          }
    }
@@ -134,7 +134,7 @@ public class Server implements Runnable
          }
          catch(IOException ioe)
          {  
-        	 System.out.println(ioe); 
+        	 System.err.println(ioe);
          } 
       }
       else 
@@ -154,7 +154,7 @@ public class Server implements Runnable
   		//InetAddress bindAddress =  InetAddress.getLocalHost();
   		server = new Server(Integer.parseInt(console.readLine()));
       } catch (IOException ioe) {
-    	  System.out.println("IO error!");
+    	  System.err.println("IO error!");
           System.exit(1);
       }
    }

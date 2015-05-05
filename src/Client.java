@@ -6,9 +6,9 @@ public class Client implements Runnable
 {  
    private Socket socket;
    private Thread thread;
-   private DataInputStream  console;
+   private DataInputStream console;
    private DataOutputStream streamOut;
-   private ClientThread client;
+   private ClientThread clientThread;
    private String userName;
 
    public Client(String userName, InetAddress serverName, int serverPort)
@@ -23,8 +23,9 @@ public class Client implements Runnable
          start();
       }
       catch(IOException ioe)
-      {  
-    	  System.out.println(ioe.getMessage()); 
+      {
+
+    	  System.err.println(ioe.getMessage());
 	  }
    }
    
@@ -33,8 +34,7 @@ public class Client implements Runnable
 	   return userName;
    }
    
-   
-   @SuppressWarnings("deprecation")
+
    public void run()
    {  
 	  while (thread != null)
@@ -46,7 +46,7 @@ public class Client implements Runnable
          }
          catch(IOException ioe)
          {  
-        	System.out.println(ioe.getMessage());
+        	System.err.println(ioe.getMessage());
             stop();
          }
       }
@@ -70,14 +70,13 @@ public class Client implements Runnable
 	  console   = new DataInputStream(System.in);
       streamOut = new DataOutputStream(socket.getOutputStream());
       if (thread == null)
-      {  
-    	 client = new ClientThread(this, socket, userName);
+      {
+         clientThread = new ClientThread(this, socket, userName);
          thread = new Thread(this);                   
          thread.start();
       }
    }
-   
-   @SuppressWarnings("deprecation")
+
    public void stop()
    {  
 	   if (thread != null)
@@ -101,10 +100,10 @@ public class Client implements Runnable
 	   }
 	   catch(IOException ioe)
 	   {  
-		   	System.out.println("Error closing ..."); 
+		   	System.err.println("Error closing ...");
 	   }
-	   		client.close();  
-	   		client.stop();
+       clientThread.close();
+       clientThread.stop();
    }
    
    public static void main(String args[])
@@ -121,7 +120,7 @@ public class Client implements Runnable
   		int hostPort = Integer.parseInt(console.readLine());
   		client = new Client(userName, serverName, hostPort);
       } catch (IOException ioe) {
-    	  System.out.println("IO error!");
+    	  System.err.println("IO error!");
           System.exit(1);
       }
    }
