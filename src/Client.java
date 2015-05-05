@@ -1,5 +1,4 @@
 import java.net.*;
-import java.util.Scanner;
 import java.io.*;
 
 public class Client implements Runnable
@@ -19,7 +18,7 @@ public class Client implements Runnable
       {  
     	 socket = new Socket(serverName, serverPort);
          System.out.println("Connected ...");
-         System.out.println("Please type in your Messages:");
+         System.out.println("Please enter your message:");
          start();
       }
       catch(IOException ioe)
@@ -33,8 +32,8 @@ public class Client implements Runnable
    {
 	   return userName;
    }
-   
 
+   @SuppressWarnings("deprecation")
    public void run()
    {  
 	  while (thread != null)
@@ -53,7 +52,7 @@ public class Client implements Runnable
    }
    
    public void handle(String msg)
-   { 
+   {
 	  if (msg.equals(".exit"))
       {  
 		 System.out.println("Good bye.");
@@ -118,7 +117,7 @@ public class Client implements Runnable
   		InetAddress serverName = InetAddress.getByName(console.readLine());
   		System.out.print("Enter the host port: ");
   		int hostPort = Integer.parseInt(console.readLine());
-  		client = new Client(userName, serverName, hostPort);
+  		client = new Client(userName, serverName , hostPort);
       } catch (IOException ioe) {
     	  System.err.println("IO error!");
           System.exit(1);

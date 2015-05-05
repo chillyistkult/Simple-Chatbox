@@ -17,12 +17,13 @@ public class ServerThread extends Thread
       ID = socket.getPort();
       serverAddress = socket.getLocalAddress().toString();
    }
-   
+
    @SuppressWarnings("deprecation")
    public void send(String msg)
    {   
 	   try
-       {  streamOut.writeUTF(msg);
+       {
+          streamOut.writeUTF(msg);
           streamOut.flush();
        }
        catch(IOException ioe)
@@ -46,7 +47,7 @@ public class ServerThread extends Thread
       {  
     	 try
          {  
-    	  server.handle(ID, serverAddress, streamIn.readUTF());
+    	    server.handle(ID, serverAddress, streamIn.readUTF());
          }
          catch(IOException ioe)
          {

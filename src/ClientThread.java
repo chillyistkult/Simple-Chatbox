@@ -24,7 +24,7 @@ public class ClientThread extends Thread
    public void open()
    {  
 	  try
-      {  
+      {
 		 streamIn  = new DataInputStream(socket.getInputStream());
       }
       catch(IOException ioe)
@@ -54,7 +54,7 @@ public class ClientThread extends Thread
 	  while (true)
       {  
 		 try
-         {  
+         {
 			 client.handle(streamIn.readUTF());
          }
          catch(IOException ioe)
